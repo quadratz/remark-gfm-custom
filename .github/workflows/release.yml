@@ -55,4 +55,4 @@ jobs:
         run: npm install -g npm@latest
 
       - name: Publish packages to npm
-        run: bun pm pack && npm publish ./*.tgz --access public
+        run: bunx clean-publish --without-publish --temp-dir .tmp && cd .tmp && bun pm pack && npm publish ./*.tgz --access public
