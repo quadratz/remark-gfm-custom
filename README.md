@@ -1,5 +1,7 @@
 # remark-gfm-custom
 
+[![npm Badge](https://img.shields.io/npm/v/remark-gfm-custom?label=&color=050619&style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyOCAyOCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9ImFsM2VyeHB6YnN5YXhjbjE3cnJmeWs1N2I2YTl5eW8iIGNsYXNzPSJjc3MtMW5pMmpzYSI+PHRpdGxlIGlkPSJhbDNlcnhwemJzeWF4Y24xN3JyZnlrNTdiNmE5eXlvIj5ucG08L3RpdGxlPjxwYXRoIGQ9Ik0yNS45NDMgMEgyLjA1N0MuOTIgMCAwIC45MiAwIDIuMDU3djIzLjg4NkMwIDI3LjA4LjkyIDI4IDIuMDU3IDI4aDIzLjg4NkMyNy4wOCAyOCAyOCAyNy4wOCAyOCAyNS45NDNWMi4wNTdDMjggLjkyIDI3LjA4IDAgMjUuOTQzIDB6IiBmaWxsPSIjQ0IwMDAwIj48L3BhdGg+PHBhdGggZD0iTTUuOTY0IDIyLjM2NWg4LjA4MmwuMDEtMTIuMTAzaDQuMDMxbC0uMDEgMTIuMTEzaDQuMDQxbC4wMS0xNi4xNDNMNS45ODUgNi4yMWwtLjAyMSAxNi4xNTR6IiBmaWxsPSIjZmZmIj48L3BhdGg+PC9zdmc+)](https://www.npmjs.com/package/remark-gfm-custom) [![GitHub](https://img.shields.io/badge/Source-050619?style=for-the-badge&logo=github)](https://github.com/quadratz/remark-gfm-custom)
+
 A configurable [remark-gfm][] that allows you to toggle the [GitHub Flavored Markdown
 (GFM)][gfm] features.
 
