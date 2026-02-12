@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.18"
+  },
+  "fmt": {
+    "exclude": [
+      "dist",
+      "test/fixtures/**",
+      "test/snapshots/**"
+    ]
+  }
+}

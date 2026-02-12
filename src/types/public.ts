@@ -1,6 +1,6 @@
-import type { ToMarkdownOptions as FootnoteOptions } from 'mdast-util-gfm-footnote'
-import type { Options as TableOptions } from 'mdast-util-gfm-table'
-import type { Options as StrikethroughOptions } from 'micromark-extension-gfm-strikethrough'
+import type { ToMarkdownOptions as FootnoteOptions } from "mdast-util-gfm-footnote";
+import type { Options as TableOptions } from "mdast-util-gfm-table";
+import type { Options as StrikethroughOptions } from "micromark-extension-gfm-strikethrough";
 
 /**
  * Configuration for `remarkGfmCustom`
@@ -11,7 +11,7 @@ type Options = {
    *
    * [remark-gfm]: https://github.com/remarkjs/remark-gfm#options
    */
-  remarkGfm?: FootnoteOptions | TableOptions | StrikethroughOptions
+  remarkGfm?: FootnoteOptions | TableOptions | StrikethroughOptions;
   /**
    * Toggles for individual GFM features.
    */
@@ -25,7 +25,7 @@ type Options = {
      *
      * @default true
      */
-    autolinkLiteral?: boolean
+    autolinkLiteral?: boolean;
     /**
      * Toggle the [GFM footnotes][].
      *
@@ -35,7 +35,7 @@ type Options = {
      *
      * @default true
      */
-    footnote?: boolean
+    footnote?: boolean;
     /**
      * Toggle the [GFM strikethrough][].
      *
@@ -45,7 +45,7 @@ type Options = {
      *
      * @default true
      */
-    strikethrough?: boolean
+    strikethrough?: boolean;
     /**
      * Toggle the [GFM tables][].
      *
@@ -55,7 +55,7 @@ type Options = {
      *
      * @default true
      */
-    table?: boolean
+    table?: boolean;
     /**
      * Toggle the [GFM task list items][].
      *
@@ -65,8 +65,8 @@ type Options = {
      *
      * @default true
      */
-    taskListItem?: boolean
-  }
-}
+    taskListItem?: boolean;
+  };
+};
 
-export type { Options, FootnoteOptions, StrikethroughOptions, TableOptions }
+export type { FootnoteOptions, Options, StrikethroughOptions, TableOptions };

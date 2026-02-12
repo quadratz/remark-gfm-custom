@@ -11,5 +11,5 @@
 export function typedObjectKeys<const T extends object>(
   obj: T,
 ): (keyof typeof obj)[] {
-  return Object.keys(obj) as (keyof typeof obj)[]
+  return Object.keys(obj) as (keyof typeof obj)[];
 }

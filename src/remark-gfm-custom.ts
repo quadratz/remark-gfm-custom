@@ -1,41 +1,41 @@
-import type { RequiredDeep } from 'type-fest'
-import type { Processor } from 'unified'
+import type { RequiredDeep } from "type-fest";
+import type { Processor } from "unified";
 import type {
   FootnoteOptions,
   Options,
   StrikethroughOptions,
   TableOptions,
-} from './types/public'
+} from "./types/public.ts";
 
-import { merge } from 'ts-deepmerge'
-import { typedObjectKeys } from './utils'
+import { merge } from "ts-deepmerge";
+import { typedObjectKeys } from "./utils.ts";
 
 // -----------------------------------------------------------------------------
 // micromark
 // -----------------------------------------------------------------------------
-import { gfmAutolinkLiteral } from 'micromark-extension-gfm-autolink-literal'
-import { gfmFootnote } from 'micromark-extension-gfm-footnote'
-import { gfmStrikethrough } from 'micromark-extension-gfm-strikethrough'
-import { gfmTable } from 'micromark-extension-gfm-table'
-import { gfmTaskListItem } from 'micromark-extension-gfm-task-list-item'
+import { gfmAutolinkLiteral } from "micromark-extension-gfm-autolink-literal";
+import { gfmFootnote } from "micromark-extension-gfm-footnote";
+import { gfmStrikethrough } from "micromark-extension-gfm-strikethrough";
+import { gfmTable } from "micromark-extension-gfm-table";
+import { gfmTaskListItem } from "micromark-extension-gfm-task-list-item";
 
 // -----------------------------------------------------------------------------
 // mdast - from markdown
 // -----------------------------------------------------------------------------
-import { gfmAutolinkLiteralFromMarkdown } from 'mdast-util-gfm-autolink-literal'
-import { gfmFootnoteFromMarkdown } from 'mdast-util-gfm-footnote'
-import { gfmStrikethroughFromMarkdown } from 'mdast-util-gfm-strikethrough'
-import { gfmTableFromMarkdown } from 'mdast-util-gfm-table'
-import { gfmTaskListItemFromMarkdown } from 'mdast-util-gfm-task-list-item'
+import { gfmAutolinkLiteralFromMarkdown } from "mdast-util-gfm-autolink-literal";
+import { gfmFootnoteFromMarkdown } from "mdast-util-gfm-footnote";
+import { gfmStrikethroughFromMarkdown } from "mdast-util-gfm-strikethrough";
+import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
+import { gfmTaskListItemFromMarkdown } from "mdast-util-gfm-task-list-item";
 
 // -----------------------------------------------------------------------------
 // mdast - to markdown
 // -----------------------------------------------------------------------------
-import { gfmAutolinkLiteralToMarkdown } from 'mdast-util-gfm-autolink-literal'
-import { gfmFootnoteToMarkdown } from 'mdast-util-gfm-footnote'
-import { gfmStrikethroughToMarkdown } from 'mdast-util-gfm-strikethrough'
-import { gfmTableToMarkdown } from 'mdast-util-gfm-table'
-import { gfmTaskListItemToMarkdown } from 'mdast-util-gfm-task-list-item'
+import { gfmAutolinkLiteralToMarkdown } from "mdast-util-gfm-autolink-literal";
+import { gfmFootnoteToMarkdown } from "mdast-util-gfm-footnote";
+import { gfmStrikethroughToMarkdown } from "mdast-util-gfm-strikethrough";
+import { gfmTableToMarkdown } from "mdast-util-gfm-table";
+import { gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
 
 const DEFAULT_OPTIONS = {
   remarkGfm: {},
@@ -46,7 +46,7 @@ const DEFAULT_OPTIONS = {
     table: true,
     taskListItem: true,
   },
-} as const satisfies Required<Options>
+} as const satisfies Required<Options>;
 
 /**
  * A custom version of [remark-gfm] that lets you pick and choose which
@@ -76,73 +76,73 @@ const DEFAULT_OPTIONS = {
  * assert.equal(file.toString(), '<p>https://example.com</p>');
  * ```
  */
-function remarkGfmCustom(options?: Options): void
+function remarkGfmCustom(options?: Options): void;
 function remarkGfmCustom(
   this: Processor,
   userOptions: Options = DEFAULT_OPTIONS,
 ): void {
-  const options = merge(DEFAULT_OPTIONS, userOptions) as RequiredDeep<Options>
-  const data = this.data()
+  const options = merge(DEFAULT_OPTIONS, userOptions) as RequiredDeep<Options>;
+  const data = this.data();
 
-  if (!data.micromarkExtensions) data.micromarkExtensions = []
-  if (!data.fromMarkdownExtensions) data.fromMarkdownExtensions = []
-  if (!data.toMarkdownExtensions) data.toMarkdownExtensions = []
+  if (!data.micromarkExtensions) data.micromarkExtensions = [];
+  if (!data.fromMarkdownExtensions) data.fromMarkdownExtensions = [];
+  if (!data.toMarkdownExtensions) data.toMarkdownExtensions = [];
 
   const { micromarkExtensions, fromMarkdownExtensions, toMarkdownExtensions } =
-    data
+    data;
 
   for (const name of typedObjectKeys(options.plugins)) {
-    if (options.plugins[name] === false) continue
+    if (options.plugins[name] === false) continue;
 
     switch (name) {
-      case 'autolinkLiteral':
-        micromarkExtensions.push(gfmAutolinkLiteral())
-        fromMarkdownExtensions.push(gfmAutolinkLiteralFromMarkdown())
-        toMarkdownExtensions.push(gfmAutolinkLiteralToMarkdown())
-        continue
+      case "autolinkLiteral":
+        micromarkExtensions.push(gfmAutolinkLiteral());
+        fromMarkdownExtensions.push(gfmAutolinkLiteralFromMarkdown());
+        toMarkdownExtensions.push(gfmAutolinkLiteralToMarkdown());
+        continue;
 
-      case 'footnote': {
-        micromarkExtensions.push(gfmFootnote())
-        fromMarkdownExtensions.push(gfmFootnoteFromMarkdown())
+      case "footnote": {
+        micromarkExtensions.push(gfmFootnote());
+        fromMarkdownExtensions.push(gfmFootnoteFromMarkdown());
 
-        const opt = options.remarkGfm as FootnoteOptions
-        toMarkdownExtensions.push(gfmFootnoteToMarkdown(opt))
+        const opt = options.remarkGfm as FootnoteOptions;
+        toMarkdownExtensions.push(gfmFootnoteToMarkdown(opt));
 
-        continue
+        continue;
       }
 
-      case 'strikethrough': {
-        const opt = options.remarkGfm as StrikethroughOptions
-        micromarkExtensions.push(gfmStrikethrough(opt))
+      case "strikethrough": {
+        const opt = options.remarkGfm as StrikethroughOptions;
+        micromarkExtensions.push(gfmStrikethrough(opt));
 
-        fromMarkdownExtensions.push(gfmStrikethroughFromMarkdown())
-        toMarkdownExtensions.push(gfmStrikethroughToMarkdown())
+        fromMarkdownExtensions.push(gfmStrikethroughFromMarkdown());
+        toMarkdownExtensions.push(gfmStrikethroughToMarkdown());
 
-        continue
+        continue;
       }
 
-      case 'table': {
-        micromarkExtensions.push(gfmTable())
-        fromMarkdownExtensions.push(gfmTableFromMarkdown())
+      case "table": {
+        micromarkExtensions.push(gfmTable());
+        fromMarkdownExtensions.push(gfmTableFromMarkdown());
 
-        const opt = options.remarkGfm as TableOptions
-        toMarkdownExtensions.push(gfmTableToMarkdown(opt))
+        const opt = options.remarkGfm as TableOptions;
+        toMarkdownExtensions.push(gfmTableToMarkdown(opt));
 
-        continue
+        continue;
       }
 
-      case 'taskListItem':
-        micromarkExtensions.push(gfmTaskListItem())
-        fromMarkdownExtensions.push(gfmTaskListItemFromMarkdown())
-        toMarkdownExtensions.push(gfmTaskListItemToMarkdown())
-        continue
+      case "taskListItem":
+        micromarkExtensions.push(gfmTaskListItem());
+        fromMarkdownExtensions.push(gfmTaskListItemFromMarkdown());
+        toMarkdownExtensions.push(gfmTaskListItemToMarkdown());
+        continue;
 
       default:
         throw new TypeError(
           `Unknown "${name}" for plugin options. Please ensure your config is not mistyped.`,
-        )
+        );
     }
   }
 }
 
-export { remarkGfmCustom }
+export { remarkGfmCustom };

@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   contents: write
@@ -15,38 +15,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
         with:
-          bun-version: latest
+          deno-version: stable
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: deno install --frozen
 
-      - name: Type check
-        run: bun run type-check
-
-      - name: Lint
-        run: bun run lint
-
-      - name: Run tests
-        run: bun run test
+      - name: Check
+        run: deno task check
 
       - name: Build
-        run: bun run build
+        run: deno task build
 
       - name: Generate changelog
-        run: bunx changelogithub
+        run: deno -A npm:changelogithub
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,4 +49,4 @@ jobs:
         run: npm install -g npm@latest
 
       - name: Publish packages to npm
-        run: bunx clean-pkg-json && bun pm pack && npm publish ./*.tgz --access public
+        run: deno -A npm:clean-pkg-json && npm publish --access public

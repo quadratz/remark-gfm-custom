@@ -1,2 +1,2 @@
-export type { Options } from './types/public'
-export { remarkGfmCustom } from './remark-gfm-custom'
+export type { Options } from "./types/public.ts";
+export { remarkGfmCustom } from "./remark-gfm-custom.ts";
