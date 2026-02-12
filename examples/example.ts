@@ -6,11 +6,11 @@ import { unified } from 'unified'
 import { remarkGfmCustom } from 'remark-gfm-custom'
 
 const file = await unified()
-	.use(remarkParse)
-	// This disables the GFM autolink feature.
-	.use(remarkGfmCustom, { plugins: { foo: true } })
-	.use(remarkRehype)
-	.use(rehypeStringify)
-	.process('https://example.com')
+  .use(remarkParse)
+  // This disables the GFM autolink feature.
+  .use(remarkGfmCustom, { plugins: { foo: true } })
+  .use(remarkRehype)
+  .use(rehypeStringify)
+  .process('https://example.com')
 
 assert.equal(file.toString(), '<p>https://example.com</p>')

@@ -1,10 +1,10 @@
 import type { RequiredDeep } from 'type-fest'
 import type { Processor } from 'unified'
 import type {
-	FootnoteOptions,
-	Options,
-	StrikethroughOptions,
-	TableOptions,
+  FootnoteOptions,
+  Options,
+  StrikethroughOptions,
+  TableOptions,
 } from './types/public'
 
 import { merge } from 'ts-deepmerge'
@@ -38,14 +38,14 @@ import { gfmTableToMarkdown } from 'mdast-util-gfm-table'
 import { gfmTaskListItemToMarkdown } from 'mdast-util-gfm-task-list-item'
 
 const DEFAULT_OPTIONS = {
-	remarkGfm: {},
-	plugins: {
-		autolinkLiteral: true,
-		footnote: true,
-		strikethrough: true,
-		table: true,
-		taskListItem: true,
-	},
+  remarkGfm: {},
+  plugins: {
+    autolinkLiteral: true,
+    footnote: true,
+    strikethrough: true,
+    table: true,
+    taskListItem: true,
+  },
 } as const satisfies Required<Options>
 
 /**
@@ -78,71 +78,71 @@ const DEFAULT_OPTIONS = {
  */
 function remarkGfmCustom(options?: Options): void
 function remarkGfmCustom(
-	this: Processor,
-	userOptions: Options = DEFAULT_OPTIONS,
+  this: Processor,
+  userOptions: Options = DEFAULT_OPTIONS,
 ): void {
-	const options = merge(DEFAULT_OPTIONS, userOptions) as RequiredDeep<Options>
-	const data = this.data()
+  const options = merge(DEFAULT_OPTIONS, userOptions) as RequiredDeep<Options>
+  const data = this.data()
 
-	if (!data.micromarkExtensions) data.micromarkExtensions = []
-	if (!data.fromMarkdownExtensions) data.fromMarkdownExtensions = []
-	if (!data.toMarkdownExtensions) data.toMarkdownExtensions = []
+  if (!data.micromarkExtensions) data.micromarkExtensions = []
+  if (!data.fromMarkdownExtensions) data.fromMarkdownExtensions = []
+  if (!data.toMarkdownExtensions) data.toMarkdownExtensions = []
 
-	const { micromarkExtensions, fromMarkdownExtensions, toMarkdownExtensions } =
-		data
+  const { micromarkExtensions, fromMarkdownExtensions, toMarkdownExtensions } =
+    data
 
-	for (const name of typedObjectKeys(options.plugins)) {
-		if (options.plugins[name] === false) continue
+  for (const name of typedObjectKeys(options.plugins)) {
+    if (options.plugins[name] === false) continue
 
-		switch (name) {
-			case 'autolinkLiteral':
-				micromarkExtensions.push(gfmAutolinkLiteral())
-				fromMarkdownExtensions.push(gfmAutolinkLiteralFromMarkdown())
-				toMarkdownExtensions.push(gfmAutolinkLiteralToMarkdown())
-				continue
+    switch (name) {
+      case 'autolinkLiteral':
+        micromarkExtensions.push(gfmAutolinkLiteral())
+        fromMarkdownExtensions.push(gfmAutolinkLiteralFromMarkdown())
+        toMarkdownExtensions.push(gfmAutolinkLiteralToMarkdown())
+        continue
 
-			case 'footnote': {
-				micromarkExtensions.push(gfmFootnote())
-				fromMarkdownExtensions.push(gfmFootnoteFromMarkdown())
+      case 'footnote': {
+        micromarkExtensions.push(gfmFootnote())
+        fromMarkdownExtensions.push(gfmFootnoteFromMarkdown())
 
-				const opt = options.remarkGfm as FootnoteOptions
-				toMarkdownExtensions.push(gfmFootnoteToMarkdown(opt))
+        const opt = options.remarkGfm as FootnoteOptions
+        toMarkdownExtensions.push(gfmFootnoteToMarkdown(opt))
 
-				continue
-			}
+        continue
+      }
 
-			case 'strikethrough': {
-				const opt = options.remarkGfm as StrikethroughOptions
-				micromarkExtensions.push(gfmStrikethrough(opt))
+      case 'strikethrough': {
+        const opt = options.remarkGfm as StrikethroughOptions
+        micromarkExtensions.push(gfmStrikethrough(opt))
 
-				fromMarkdownExtensions.push(gfmStrikethroughFromMarkdown())
-				toMarkdownExtensions.push(gfmStrikethroughToMarkdown())
+        fromMarkdownExtensions.push(gfmStrikethroughFromMarkdown())
+        toMarkdownExtensions.push(gfmStrikethroughToMarkdown())
 
-				continue
-			}
+        continue
+      }
 
-			case 'table': {
-				micromarkExtensions.push(gfmTable())
-				fromMarkdownExtensions.push(gfmTableFromMarkdown())
+      case 'table': {
+        micromarkExtensions.push(gfmTable())
+        fromMarkdownExtensions.push(gfmTableFromMarkdown())
 
-				const opt = options.remarkGfm as TableOptions
-				toMarkdownExtensions.push(gfmTableToMarkdown(opt))
+        const opt = options.remarkGfm as TableOptions
+        toMarkdownExtensions.push(gfmTableToMarkdown(opt))
 
-				continue
-			}
+        continue
+      }
 
-			case 'taskListItem':
-				micromarkExtensions.push(gfmTaskListItem())
-				fromMarkdownExtensions.push(gfmTaskListItemFromMarkdown())
-				toMarkdownExtensions.push(gfmTaskListItemToMarkdown())
-				continue
+      case 'taskListItem':
+        micromarkExtensions.push(gfmTaskListItem())
+        fromMarkdownExtensions.push(gfmTaskListItemFromMarkdown())
+        toMarkdownExtensions.push(gfmTaskListItemToMarkdown())
+        continue
 
-			default:
-				throw new TypeError(
-					`Unknown "${name}" for plugin options. Please ensure your config is not mistyped.`,
-				)
-		}
-	}
+      default:
+        throw new TypeError(
+          `Unknown "${name}" for plugin options. Please ensure your config is not mistyped.`,
+        )
+    }
+  }
 }
 
 export { remarkGfmCustom }

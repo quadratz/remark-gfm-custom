@@ -32,12 +32,12 @@ import { unified } from 'unified'
 import { remarkGfmCustom } from 'remark-gfm-custom'
 
 const file = await unified()
-	.use(remarkParse)
-	// This disables the GFM autolink feature.
-	.use(remarkGfmCustom, { plugins: { autolinkLiteral: false } })
-	.use(remarkRehype)
-	.use(rehypeStringify)
-	.process('https://example.com')
+  .use(remarkParse)
+  // This disables the GFM autolink feature.
+  .use(remarkGfmCustom, { plugins: { autolinkLiteral: false } })
+  .use(remarkRehype)
+  .use(rehypeStringify)
+  .process('https://example.com')
 
 assert.equal(file.toString(), '<p>https://example.com</p>')
 ```
@@ -58,14 +58,14 @@ The main plugin. It receives one optional parameter to configure behavior. See t
 
 ```ts
 type Options = {
-	remarkGfm?: FootnoteOptions | TableOptions | StrikethroughOptions
-	plugins?: {
-		autolinkLiteral?: boolean
-		footnote?: boolean
-		strikethrough?: boolean
-		table?: boolean
-		taskListItem?: boolean
-	}
+  remarkGfm?: FootnoteOptions | TableOptions | StrikethroughOptions
+  plugins?: {
+    autolinkLiteral?: boolean
+    footnote?: boolean
+    strikethrough?: boolean
+    table?: boolean
+    taskListItem?: boolean
+  }
 }
 ```
 
@@ -81,58 +81,58 @@ Options passed directly to the [remark-gfm][] plugins. The available fields are:
 
 ##### `firstLineBlank`
 
-  ```ts
-  type firstLineBlank = boolean
-  ```
+```ts
+type firstLineBlank = boolean
+```
 
-  Serialize with a blank line for the first line of footnote definitions.
+Serialize with a blank line for the first line of footnote definitions.
 
-  - Default: `false`.
-  - Reference: <https://github.com/remarkjs/remark-gfm#options>
+- Default: `false`.
+- Reference: <https://github.com/remarkjs/remark-gfm#options>
 
 ##### `stringLength`
 
-  ```ts
-  type stringLength = (value: string) => number
-  ```
+```ts
+type stringLength = (value: string) => number
+```
 
-  Detect the size of table cells, used when aligning cells.
+Detect the size of table cells, used when aligning cells.
 
-  - Default: `d => d.length`.
-  - Reference: <https://github.com/remarkjs/remark-gfm#options>
+- Default: `d => d.length`.
+- Reference: <https://github.com/remarkjs/remark-gfm#options>
   
 ##### `singleTilde`
 
-  ```ts
-  type singleTilde = boolean
-  ```
+```ts
+type singleTilde = boolean
+```
 
-  Whether to support strikethrough with a single tilde. Single tildes work on GitHub but are technically prohibited by GFM.
+Whether to support strikethrough with a single tilde. Single tildes work on GitHub but are technically prohibited by GFM.
 
-  - Default: `true`.
-  - Reference: <https://github.com/remarkjs/remark-gfm#options>
+- Default: `true`.
+- Reference: <https://github.com/remarkjs/remark-gfm#options>
   
 ##### `tablePipeAlign`
 
-  ```ts
-  type tablePipeAlign = boolean
-  ```
+```ts
+type tablePipeAlign = boolean
+```
 
-  Whether to align table pipes.
+Whether to align table pipes.
 
-  - Default: `true`.
-  - Reference: <https://github.com/remarkjs/remark-gfm#options>
+- Default: `true`.
+- Reference: <https://github.com/remarkjs/remark-gfm#options>
 
 ##### `tableCellPadding`
 
-  ```ts
-  type tableCellPadding = boolean
-  ```
+```ts
+type tableCellPadding = boolean
+```
 
-  Whether to add a space of padding between table pipes and cells.
+Whether to add a space of padding between table pipes and cells.
 
-  - Default: `true`.
-  - Reference: <https://github.com/remarkjs/remark-gfm#options>
+- Default: `true`.
+- Reference: <https://github.com/remarkjs/remark-gfm#options>
 
 ##### `plugins`
 
@@ -142,23 +142,23 @@ All fields below are `boolean` and default to `true`. Set a field to `false` to 
 
 ##### `autolinkLiteral`
 
-  Toggle [GFM literal autolinks](https://github.com/micromark/micromark-extension-gfm-autolink-literal).
+Toggle [GFM literal autolinks](https://github.com/micromark/micromark-extension-gfm-autolink-literal).
 
 ##### `footnote`
 
-  Toggle the [GFM footnotes](https://github.com/micromark/micromark-extension-gfm-footnote).
+Toggle the [GFM footnotes](https://github.com/micromark/micromark-extension-gfm-footnote).
 
 ##### `strikethrough`
 
-  Toggle the [GFM strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough).
+Toggle the [GFM strikethrough](https://github.com/micromark/micromark-extension-gfm-strikethrough).
 
 ##### `table`
 
-  Toggle the [GFM tables](https://github.com/micromark/micromark-extension-gfm-table).
+Toggle the [GFM tables](https://github.com/micromark/micromark-extension-gfm-table).
 
 ##### `taskListItem`
 
-  Toggle the [GFM task list items](https://github.com/micromark/micromark-extension-gfm-task-list-item).
+Toggle the [GFM task list items](https://github.com/micromark/micromark-extension-gfm-task-list-item).
 
 ## Contributing
 

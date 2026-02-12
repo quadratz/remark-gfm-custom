@@ -20,30 +20,30 @@ export { check }
  * @param options - Plugin settings to use during the test.
  */
 async function check(fixtureName: string, options?: Options): Promise<void> {
-	const outputFormats = [
-		'markdown',
-		'html',
-	] as const satisfies ParseConfig['outputFormat'][]
+  const outputFormats = [
+    'markdown',
+    'html',
+  ] as const satisfies ParseConfig['outputFormat'][]
 
-	/**
-	 * Decides if we should compare our custom GFM output with standard
-	 * `remarkGfm`.
-	 *
-	 * We skip this comparison when plugins are disabled because standard
-	 * `remarkGfm` doesn't have the same features, so the results won't match.
-	 */
-	const compareWithStandardGfm = !options?.plugins
+  /**
+   * Decides if we should compare our custom GFM output with standard
+   * `remarkGfm`.
+   *
+   * We skip this comparison when plugins are disabled because standard
+   * `remarkGfm` doesn't have the same features, so the results won't match.
+   */
+  const compareWithStandardGfm = !options?.plugins
 
-	await Promise.all(
-		outputFormats.map((format) =>
-			parse({
-				fixtureName,
-				outputFormat: format,
-				options,
-				compareWithStandardGfm,
-			}),
-		),
-	)
+  await Promise.all(
+    outputFormats.map((format) =>
+      parse({
+        fixtureName,
+        outputFormat: format,
+        options,
+        compareWithStandardGfm,
+      }),
+    ),
+  )
 }
 
 /**
@@ -55,44 +55,44 @@ async function check(fixtureName: string, options?: Options): Promise<void> {
  * @param config - The configuration for this specific parse run.
  */
 async function parse(config: ParseConfig): Promise<void> {
-	const { fixtureName, outputFormat, options, compareWithStandardGfm } = config
+  const { fixtureName, outputFormat, options, compareWithStandardGfm } = config
 
-	// Find the source fixture and the corresponding snapshot file
-	const fixturePath = join(import.meta.dirname, 'fixtures', `${fixtureName}.md`)
-	const snapshotPath = join(
-		import.meta.dirname,
-		'snapshots',
-		`${fixtureName}${outputFormat === 'markdown' ? '.md' : '.html'}`,
-	)
+  // Find the source fixture and the corresponding snapshot file
+  const fixturePath = join(import.meta.dirname, 'fixtures', `${fixtureName}.md`)
+  const snapshotPath = join(
+    import.meta.dirname,
+    'snapshots',
+    `${fixtureName}${outputFormat === 'markdown' ? '.md' : '.html'}`,
+  )
 
-	const vFile = await read(fixturePath)
-	const isMarkdown = outputFormat === 'markdown'
+  const vFile = await read(fixturePath)
+  const isMarkdown = outputFormat === 'markdown'
 
-	// Pick the right processor based on the format.
-	const process = isMarkdown ? parseMarkdown : parseHtml
+  // Pick the right processor based on the format.
+  const process = isMarkdown ? parseMarkdown : parseHtml
 
-	const customResultPromise = process(vFile, remarkGfmCustom, options)
-	const standardResultPromise = compareWithStandardGfm
-		? process(vFile, remarkGfm, options?.remarkGfm)
-		: Promise.resolve('')
+  const customResultPromise = process(vFile, remarkGfmCustom, options)
+  const standardResultPromise = compareWithStandardGfm
+    ? process(vFile, remarkGfm, options?.remarkGfm)
+    : Promise.resolve('')
 
-	const [standardResult, customResult, snapshot] = await Promise.all([
-		standardResultPromise,
-		customResultPromise,
-		Bun.file(snapshotPath).text(),
-	])
+  const [standardResult, customResult, snapshot] = await Promise.all([
+    standardResultPromise,
+    customResultPromise,
+    Bun.file(snapshotPath).text(),
+  ])
 
-	// Verify the custom output matches the saved snapshot.
-	expect(customResult, 'Custom output does not match the snapshot').toBe(
-		snapshot,
-	)
+  // Verify the custom output matches the saved snapshot.
+  expect(customResult, 'Custom output does not match the snapshot').toBe(
+    snapshot,
+  )
 
-	// If requested, verify standard GFM also matches the snapshot.
-	if (compareWithStandardGfm) {
-		expect(standardResult, 'Standard output does not match the snapshot').toBe(
-			snapshot,
-		)
-	}
+  // If requested, verify standard GFM also matches the snapshot.
+  if (compareWithStandardGfm) {
+    expect(standardResult, 'Standard output does not match the snapshot').toBe(
+      snapshot,
+    )
+  }
 }
 
 /**
@@ -103,15 +103,15 @@ async function parse(config: ParseConfig): Promise<void> {
  * @param pluginOptions - Options specific to the chosen plugin.
  */
 async function parseMarkdown<PluginType extends Plugin>(
-	file: VFile,
-	plugin: PluginType,
-	pluginOptions: Parameters<PluginType>[number],
+  file: VFile,
+  plugin: PluginType,
+  pluginOptions: Parameters<PluginType>[number],
 ) {
-	const result = await remark()
-		.use(plugin, pluginOptions)
-		.process(new VFile(file))
+  const result = await remark()
+    .use(plugin, pluginOptions)
+    .process(new VFile(file))
 
-	return result.toString()
+  return result.toString()
 }
 
 /**
@@ -122,31 +122,31 @@ async function parseMarkdown<PluginType extends Plugin>(
  * @param pluginOptions - Options specific to the chosen plugin.
  */
 async function parseHtml<PluginType extends Plugin>(
-	file: VFile,
-	plugin: PluginType,
-	pluginOptions: Parameters<PluginType>[number],
+  file: VFile,
+  plugin: PluginType,
+  pluginOptions: Parameters<PluginType>[number],
 ) {
-	const result = await unified()
-		.use(remarkParse)
-		.use(plugin, pluginOptions)
-		.use(remarkRehype)
-		.use(rehypeFormat)
-		.use(rehypeStringify)
-		.process(new VFile(file))
+  const result = await unified()
+    .use(remarkParse)
+    .use(plugin, pluginOptions)
+    .use(remarkRehype)
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(new VFile(file))
 
-	return result.toString().trimStart()
+  return result.toString().trimStart()
 }
 
 /**
  * Configuration for the fixture parsing process.
  */
 interface ParseConfig {
-	/** The name of the fixture file (without extension). */
-	fixtureName: string
-	/** Whether we want to test the Markdown output or the HTML output. */
-	outputFormat: 'markdown' | 'html'
-	/** Custom options for the plugin being tested. */
-	options?: Options
-	/** If true, we'll run a baseline test against the standard GFM plugin. */
-	compareWithStandardGfm?: boolean
+  /** The name of the fixture file (without extension). */
+  fixtureName: string
+  /** Whether we want to test the Markdown output or the HTML output. */
+  outputFormat: 'markdown' | 'html'
+  /** Custom options for the plugin being tested. */
+  options?: Options
+  /** If true, we'll run a baseline test against the standard GFM plugin. */
+  compareWithStandardGfm?: boolean
 }
