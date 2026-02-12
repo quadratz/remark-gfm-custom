@@ -166,7 +166,7 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution guidelines.
 
 ## License
 
-MIT
+[MIT](./LICENSE)
 
 [gfm]: https://github.github.com/gfm/
 
