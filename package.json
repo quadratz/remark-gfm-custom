@@ -83,5 +83,8 @@
 		"micromark-extension-gfm-table": "^2.1.1",
 		"micromark-extension-gfm-task-list-item": "^2.1.0",
 		"ts-deepmerge": "^7.0.3"
-	}
+	},
+	"keywords": [
+		"autolink footnote gfm github markdown mdast plugin remark remark-plugin strikethrough table tasklist unified"
+	]
 }
