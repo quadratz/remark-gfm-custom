@@ -18,8 +18,14 @@
     "./package.json": "./package.json"
   },
   "homepage": "https://github.com/quadratz/remark-gfm-custom#readme",
+  "author": {
+    "name": "Quadratz",
+    "email": "quadratz@proton.me",
+    "url": "https://t.me/quadratz"
+  },
   "bugs": {
-    "url": "https://github.com/quadratz/remark-gfm-custom/issues"
+    "url": "https://github.com/quadratz/remark-gfm-custom/issues",
+    "email": "quadratz@proton.me"
   },
   "license": "MIT",
   "repository": {
