@@ -91,6 +91,18 @@
     "ts-deepmerge": "^7.0.3"
   },
   "keywords": [
-    "autolink footnote gfm github markdown mdast plugin remark remark-plugin strikethrough table tasklist unified"
+    "autolink",
+    "footnote",
+    "gfm",
+    "github",
+    "markdown",
+    "mdast",
+    "plugin",
+    "remark",
+    "remark-plugin",
+    "strikethrough",
+    "table",
+    "tasklist",
+    "unified"
   ]
 }
