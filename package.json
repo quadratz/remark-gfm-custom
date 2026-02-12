@@ -1,7 +1,7 @@
 {
   "name": "remark-gfm-custom",
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A configurable remark-gfm that allows you to toggle the GitHub Flavored Markdown (GFM) features.",
   "author": {
     "name": "Quadratz",
