@@ -8,7 +8,7 @@ import { remarkGfmCustom } from "remark-gfm-custom";
 const file = await unified()
   .use(remarkParse)
   // This disables the GFM autolink feature.
-  .use(remarkGfmCustom, { plugins: { autolinkLiteral: true } })
+  .use(remarkGfmCustom, { plugins: { autolinkLiteral: false } })
   .use(remarkRehype)
   .use(rehypeStringify)
   .process("https://example.com");
