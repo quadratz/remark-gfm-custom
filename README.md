@@ -52,7 +52,7 @@ This package exports the following:
 function remarkGfmCustom(options?: Options): void
 ```
 
-The main plugin. It receives one parameter to configure behavior. See the [`Options` section](#options) below for configuration details.
+The main plugin. It receives one optional parameter to configure behavior. See the [`Options` section](#options) below for configuration details.
 
 #### `Options`
 
