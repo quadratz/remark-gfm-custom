@@ -31,11 +31,11 @@ jobs:
       - name: Install dependencies
         run: deno install --frozen
 
-      - name: Check
-        run: deno task check
-
       - name: Build
         run: deno task build
+
+      - name: Check
+        run: deno task check
 
       - name: Generate changelog
         run: deno -A npm:changelogithub
