@@ -107,7 +107,7 @@ Options passed directly to the [remark-gfm][] plugins. The available fields are:
   type singleTilde = boolean
   ```
 
-  Whether to support strikethrough with a single tilde. Single tildes work on github.com but are technically prohibited by GFM.
+  Whether to support strikethrough with a single tilde. Single tildes work on GitHub but are technically prohibited by GFM.
 
   - Default: `true`.
   - Reference: <https://github.com/remarkjs/remark-gfm#options>
